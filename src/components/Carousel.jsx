@@ -1,30 +1,87 @@
-// import React from 'react';
-// import { UncontrolledCarousel } from 'reactstrap';
+import React, { useState } from 'react';
+import {
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption
+} from 'reactstrap';
 
-// const items = [
-//   {
-//     src: '',
-//     altText: 'Slide 1',
-//     caption: 'Slide 1',
-//     header: 'Slide 1 Header',
-//     key: '1'
-//   },
-//   {
-//     src: '',
-//     altText: 'Slide 2',
-//     caption: 'Slide 2',
-//     header: 'Slide 2 Header',
-//     key: '2'
-//   },
-//   {
-//     src: '',
-//     altText: 'Slide 3',
-//     caption: 'Slide 3',
-//     header: 'Slide 3 Header',
-//     key: '3'
-//   }
-// ];
+const items = [
+  {
+    src: 'https://images.unsplash.com/photo-1512428197675-daae5d4e1e43?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1953&q=80',
+    altText: 'Arizona Package',
+    caption: 'Arizona Package'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1512428197675-daae5d4e1e43?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1953&q=80',
+    altText: 'Arizona Package',
+    caption: 'Arizona Package'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1512428197675-daae5d4e1e43?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1953&q=80',
+    altText: 'Arizona Package',
+    caption: 'Arizona Package'
+  }
+];
 
-// const Carousel = () => <UncontrolledCarousel items={items} />;
+const Example = (props) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
 
-// export default Carousel;
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
+  }
+
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  }
+
+  const goToIndex = (newIndex) => {
+    if (animating) return;
+    setActiveIndex(newIndex);
+  }
+
+  const slides = items.map((item) => {
+    return (
+      <CarouselItem
+        className="custom-tag"
+        onExiting={() => setAnimating(true)}
+        onExited={() => setAnimating(false)}
+        key={item.src}
+      >
+        <img src={item.src} alt={item.altText} />
+        <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+      </CarouselItem>
+    );
+  });
+
+  return (
+    <div>
+        <style>
+        {
+          `.custom-tag {
+              max-width: 100%;
+              height: 600px;
+            }`
+        }
+      </style>
+    <Carousel
+      activeIndex={activeIndex}
+      next={next}
+      previous={previous}
+    >
+      <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
+      {slides}
+      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+    </Carousel>
+    </div>
+  );
+}
+
+export default Example;
