@@ -1,0 +1,26 @@
+h1 {
+    color: orange;
+}
+
+.container-info {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.info-section-one {
+    display: flex;
+    height: 300px;
+}
+
+.info-section-two {
+    margin-top: 50px;
+    display: flex;
+    height: 300px;
+}
+
+.part-one {
+    width: 80%;
+    padding-bottom: 100px;
+}
